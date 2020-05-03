@@ -1,0 +1,107 @@
+﻿body {
+    background-color: #829682;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+}
+
+fieldset {
+    /* Centrar el formulario en la página */
+    margin: auto;
+    width: 450px;
+    /* Esquema del formulario */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+legend {
+    font-size: 27px;
+    background-color: #3e753e;
+    border-radius: .2em;
+    color: #dbecdb;
+    cursor: default;
+}
+
+ul {
+    /*Elimina las viñetas*/
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+form li + li {
+    margin-top: 1em;
+}
+
+label {
+    /* Tamaño y alineación uniforme */
+    display: inline-block;
+    width: 110px;
+}
+
+input {
+    /* Tamaño uniforme del campo de texto */
+    width: 320px;
+    height: 22px;
+    box-sizing: border-box;
+    /* Hacer coincidir los bordes del campo del formulario */
+    border: 1px solid #999;
+    border-radius: .2em;
+}
+
+    input[type=button] {
+        margin-top: 20px;
+        width: 145px;
+        background-color: #3e753e;
+        color: #dbecdb;
+        border-radius: .2em;
+        font-weight: 600;
+        transition: background-color .2s;
+    }
+
+    input:focus {
+        border: 2px solid greenyellow;
+    }
+
+    input[type=button]:hover {
+        cursor: pointer;
+        background-color: #315231;
+    }
+
+    input[type=button]:active {
+        background-color: #5e985e;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+#gridProductos {
+    /* Centrar el formulario en la página */
+    margin: 20px auto auto auto;
+    width: 550px;
+    /* Esquema del formulario */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 2px solid #3e753e;
+    width: 100%;
+    text-align: center;
+}
+
+tr:first-child {
+    font-weight: 800;
+    background-color: #3e753e;
+    color: #dbecdb;
+}
+
+li:first-child{
+    display: none;
+}
