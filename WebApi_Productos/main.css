@@ -100,6 +100,13 @@ tr:first-child {
     font-weight: 800;
     background-color: #3e753e;
     color: #dbecdb;
+    cursor:default;
+}
+
+tr:hover:not(:first-of-type) {
+    background-color: #3e753e;
+    color: white;
+    cursor: pointer;
 }
 
 li:first-child{
