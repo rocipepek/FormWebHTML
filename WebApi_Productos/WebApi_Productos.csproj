@@ -80,14 +80,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Script\pedido.js" />
     <Content Include="Global.asax" />
-    <Content Include="HTMLProductos.html" />
+    <Content Include="HTML\HTMLPedido.html" />
+    <Content Include="HTML\HTMLProductos.html" />
     <Content Include="main.css" />
-    <Content Include="main.js" />
+    <Content Include="Script\producto.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

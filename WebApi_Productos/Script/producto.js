@@ -68,7 +68,7 @@ function ajaxGET() {
         async: false
     }).done(function (data) {
         result = data;
-    }).error(function (xhr, status, error) {
+    }).fail(function (xhr, status, error) {
         alert(error);
         var s = status;
         var e = error;
@@ -88,7 +88,7 @@ function ajaxPOST() {
     }).done(function (data) {
         result = data;
         alert('Elemento insertado')
-    }).error(function (xhr, status, error) {
+    }).fail(function (xhr, status, error) {
         alert(error);
         var s = status;
         var e = error;
@@ -109,7 +109,7 @@ function ajaxPUT() {
     }).done(function (data) {
         result = data;
         alert('Elemento actualizado')
-    }).error(function (xhr, status, error) {
+    }).fail(function (xhr, status, error) {
         alert(error);
         var s = status;
         var e = error;
@@ -128,7 +128,7 @@ function ajaxDELETE(id) {
     }).done(function (data) {
         result = data;
         alert('Elemento borrado')
-    }).error(function (xhr, status, error) {
+    }).fail(function (xhr, status, error) {
         alert(error);
         var s = status;
         var e = error;
@@ -140,27 +140,33 @@ function ajaxDELETE(id) {
 function construirGrilla(data) {
     var grd = $('#gridProductos');
     grd.html("");
-    var tbl = $('<table></table>');
+    var tbl = $('<table class="table table-striped table-bordered table-hover table-sm"></table>');
 
 
-    var header = $('<tr class="header"></tr>');
-    header.append('<td>Id</td>');
-    header.append('<td>Nombre</td>');
-    header.append('<td>Descripcion</td>');
-    header.append('<td>Precio</td>');
-    header.append('<td>Stock</td>');
+    var header = $('<thead class="thead-light"></thead>');
+    var tr = $('<tr></tr>');
+    tr.append('<th class="text-center">Id</th>');
+    tr.append('<th class="text-center">Nombre</th>');
+    tr.append('<th class="text-center">Descripcion</th>');
+    tr.append('<th class="text-center">Precio</th>');
+    tr.append('<th class="text-center">Stock</th>');
 
     tbl.append(header);
+    header.append(tr);
+
+    var body = $('<tbody></tbody>');
 
     for (d in data) {
         var row = $('<tr class="jqClickeable"></tr>');
-        row.append('<td>' + data[d].Id + '</td>');
-        row.append('<td>' + data[d].Nombre + '</td>');
-        row.append('<td>' + data[d].Descripcion + '</td>');
-        row.append('<td>' + data[d].Precio + '</td>');
-        row.append('<td>' + data[d].Stock + '</td>');
+        row.append('<td class="text-center">' + data[d].Id + '</td>');
+        row.append('<td class="text-center">' + data[d].Nombre + '</td>');
+        row.append('<td class="text-center">' + data[d].Descripcion + '</td>');
+        row.append('<td class="text-center">' + data[d].Precio + '</td>');
+        row.append('<td class="text-center">' + data[d].Stock + '</td>');
 
-        tbl.append(row);
+        tbl.append(body);
+        body.append(row);
+        
     }
 
     grd.append(tbl);
