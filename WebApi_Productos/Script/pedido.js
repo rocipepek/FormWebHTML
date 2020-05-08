@@ -1,5 +1,6 @@
 ﻿$(function () {
     MostrarSelectProducto();
+    MostrarSelectCliente();
 
     $("#btnAgregar").click(function () {
         //agregarCombo();
@@ -45,3 +46,38 @@ function ajaxGETProducto() {
     return result;
 }
 
+function construirSelectCliente(data) {
+    var div = $('#cmbCliente');
+    div.html("");
+
+    var row = $('<select class="custom-select mr-sm-2" "></select >');
+    var option = $('<option hidden selected>Seleccione un cliente</option>');
+    row.append(option);
+    for (d in data) {
+        row.append($('<option>' + data[d].Id + " " + data[d].Nombre + ' </option>'));
+    }
+    div.append(row);
+
+}
+
+function MostrarSelectCliente() {
+    var data = ajaxGETCliente();
+    construirSelectCliente(data);
+}
+
+function ajaxGETCliente() {
+    var result;
+
+    $.ajax({
+        url: 'https://localhost:44305/api/clientes',
+        type: 'GET',
+        async: false
+    }).done(function (data) {
+        result = data;
+    }).fail(function (xhr, status, error) {
+        alert(error);
+        var s = status;
+        var e = error;
+    });
+    return result;
+}
