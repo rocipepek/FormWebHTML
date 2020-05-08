@@ -3,9 +3,9 @@
     MostrarSelectCliente();
 
     $("#btnAgregar").click(function () {
-        //agregarCombo();
-        alert("Combo Agregado");
 
+        guardarPedido();
+        
     });
 
 });
@@ -18,7 +18,7 @@ function construirSelectProducto(data) {
     var option = $('<option hidden selected>Seleccione un producto</option>');
     row.append(option);
     for (d in data) {
-        row.append($('<option>' + data[d].Id + " " + data[d].Nombre+ ' </option>'));
+        row.append($('<option value=' + data[d].Id +'>' + data[d].Nombre+ ' </option>'));
     }
     div.append(row);
 
@@ -54,7 +54,7 @@ function construirSelectCliente(data) {
     var option = $('<option hidden selected>Seleccione un cliente</option>');
     row.append(option);
     for (d in data) {
-        row.append($('<option>' + data[d].Id + " " + data[d].Nombre + ' </option>'));
+        row.append($('<option value='+ data[d].Id +'>' + data[d].Nombre + ' </option>'));
     }
     div.append(row);
 
@@ -79,5 +79,38 @@ function ajaxGETCliente() {
         var s = status;
         var e = error;
     });
+    return result;
+}
+function guardarPedido() {
+    ajaxPOSTPedido();
+    //actualizarGrilla();
+    //restablecer();
+}
+function agregarPedido(){
+    var pedido = {};
+    pedido.IdCliente = $('#cmbCliente option:selected').val();
+    pedido.IdProducto = $('#cmbProducto option:selected').val();
+    pedido.Cantidad = $('#txtCantidad').val();
+    
+    return pedido;
+}
+
+function ajaxPOSTPedido() {
+    var result;
+    var obj = agregarPedido();
+
+    $.ajax({
+        url: 'https://localhost:44305/api/pedido',
+        type: 'POST',
+        async: false,
+        data: { "IdPedido": obj.IdPedido, "IdCliente": obj.IdCliente, "IdProducto": obj.IdProducto, "Cantidad": obj.Cantidad }
+    }).done(function (data) {
+        result = data;
+    }).error(function (xhr, status, error) {
+        alert(error);
+        var s = status;
+        var e = error;
+    });
+
     return result;
 }

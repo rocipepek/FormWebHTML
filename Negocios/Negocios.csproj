@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManejoCliente.cs" />
+    <Compile Include="ManejoPedido.cs" />
     <Compile Include="ManejoProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

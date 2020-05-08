@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BdComun.cs" />
     <Compile Include="DatoCliente.cs" />
+    <Compile Include="DatoPedido.cs" />
     <Compile Include="DatoProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
