@@ -20,5 +20,10 @@ namespace Negocios
             return DatoPedido.Obtener();
 
         }
+
+        public static List<Pedido> ObtenerPedidoCliente(int id)
+        {
+            return DatoPedido.ObtenerPedidoCliente(id);
+        }
     }
 }

@@ -2,10 +2,9 @@
     MostrarSelectProducto();
     MostrarSelectCliente();
     actualizarGrilla();
+    
     $("#btnAgregar").click(function () {
-
         guardarPedido();
-        
     });
 
 });
@@ -15,7 +14,7 @@ function construirSelectProducto(data) {
     div.html("");
 
     var row = $('<select class="custom-select mr-sm-2" "></select >');
-    var option = $('<option hidden selected>Seleccione un producto</option>');
+    var option = $('<option value="0" hidden selected>Seleccione un producto</option>');
     row.append(option);
     for (d in data) {
         row.append($('<option value=' + data[d].Id +'>' + data[d].Nombre+ ' </option>'));
@@ -51,7 +50,7 @@ function construirSelectCliente(data) {
     div.html("");
 
     var row = $('<select class="custom-select mr-sm-2" "></select >');
-    var option = $('<option hidden selected>Seleccione un cliente</option>');
+    var option = $('<option value="0" hidden selected>Seleccione un cliente</option>');
     row.append(option);
     for (d in data) {
         row.append($('<option value='+ data[d].Id +'>' + data[d].Nombre + ' </option>'));
@@ -84,7 +83,7 @@ function ajaxGETCliente() {
 function guardarPedido() {
     ajaxPOSTPedido();
     actualizarGrilla();
-    //restablecer();
+    limpiarControles();
 }
 function agregarPedido(){
     var pedido = {};
@@ -135,17 +134,25 @@ function ajaxGETPedido() {
 function actualizarGrilla(){
     var data = ajaxGETPedido();
     data.map(item => item.Precio = item.Precio * item.Cantidad)
-    construirGrilla(data);
+    construirGrilla(data, "Combo");
 }
 
-function construirGrilla(data) {
-    var grd = $('#gridCombo');
-    grd.html("");
+function construirGrilla(data, opcion) {
+    if (opcion === "Combo") {
+        var grd = $('#gridCombo');
+        grd.html("");
+    }
+    else {
+        var grd = $('#gridCliente');
+        grd.html("");
+    }
+   
     var tbl = $('<table class="table table-striped table-bordered table-hover table-sm "></table>');
 
 
     var header = $('<thead></thead>');
     var tr = $('<tr class="bg-primary text-light "></tr>');
+    tr.append('<th class="text-center">Id Cliente</th>');
     tr.append('<th class="text-center">Nombre y Apellido</th>');
     //tr.append('<th class="text-center">Apellido</th>');
     tr.append('<th class="text-center">Producto</th>');
@@ -159,6 +166,7 @@ function construirGrilla(data) {
 
     for (d in data) {
         var row = $('<tr class="jqClickeable"></tr>');
+        row.append('<td class="text-center">' + data[d].IdCliente + '</td>');
         row.append('<td class="text-center">' + data[d].Nombre + '</td>');
         //row.append('<td class="text-center">' + data[d].Apellido + '</td>');
         row.append('<td class="text-center">' + data[d].Producto + '</td>');
@@ -170,6 +178,37 @@ function construirGrilla(data) {
 
     }
     grd.append(tbl);
-   // $('.jqClickeable').click(function () { mostrarElemento($(this)); });
+    $('.jqClickeable').click(function () { mostrarCliente($(this)); });
 
+}
+
+function limpiarControles() {
+    //$('#cmbCliente').val(0);
+   
+    //$('#cmbProducto').val(0) ;
+    $('#txtCantidad').val(0);
+}
+
+function mostrarCliente(elem) {
+
+    var id_cliente = elem.children().eq(0).text();
+    var data = ajaxGETPedidoCliente(id_cliente);
+    construirGrilla(data, "Cliente");
+}
+
+function ajaxGETPedidoCliente(id_cliente) {
+    var result;
+
+    $.ajax({
+        url: 'https://localhost:44305/api/pedido/' + id_cliente,
+        type: 'GET',
+        async: false
+    }).done(function (data) {
+        result = data;
+    }).fail(function (xhr, status, error) {
+        alert("Error para obtener api de un cliente");
+        var s = status;
+        var e = error;
+    });
+    return result;
 }

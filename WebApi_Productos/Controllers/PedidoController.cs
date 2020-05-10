@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Windows.Forms;
 
 namespace WebApi_Productos.Controllers
 {
@@ -22,7 +23,16 @@ namespace WebApi_Productos.Controllers
         {
             return ManejoPedido.ObtenerPedido();
         }
+
+        // GET api/<controller>/5
+        
+        public IEnumerable<Pedido> Get(int id)
+        {
+            
+            return ManejoPedido.ObtenerPedidoCliente(id);
+        }
+        
     }
 
-       
+
 }
