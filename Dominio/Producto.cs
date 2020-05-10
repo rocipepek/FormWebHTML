@@ -11,12 +11,12 @@ namespace Dominio
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public string Precio { get; set; }
+        public double Precio { get; set; }
         public string Stock { get; set; }
 
         public Producto() { }
 
-        public Producto(int id, string nombre, string desc, string precio, string stock)
+        public Producto(int id, string nombre, string desc, double precio, string stock)
         {
             this.Id = id;
             this.Nombre = nombre;

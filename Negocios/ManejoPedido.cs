@@ -12,10 +12,13 @@ namespace Negocios
     {
         public static void GuardarPedido(Pedido pedido)
         {
-
                 DatoPedido.GuardarNuevo(pedido);
-            
-            
+        }
+
+        public static List<Pedido> ObtenerPedido()
+        {
+            return DatoPedido.Obtener();
+
         }
     }
 }

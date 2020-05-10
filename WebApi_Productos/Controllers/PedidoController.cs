@@ -18,6 +18,10 @@ namespace WebApi_Productos.Controllers
         {
             ManejoPedido.GuardarPedido(pedido);
         }
+        public IEnumerable<Pedido> Get()
+        {
+            return ManejoPedido.ObtenerPedido();
+        }
     }
 
        

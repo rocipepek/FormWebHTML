@@ -30,5 +30,32 @@ namespace Datos
             comando.ExecuteNonQuery();
             conexion.Close();
         }
+
+        public static List<Pedido> Obtener()
+        {
+            SqlConnection conexion = BdComun.EstablecerConexion();
+            List<Pedido> lista = new List<Pedido>();
+
+            //String consulta = "SELECT IDProducto, Nombre, Descripcion, Precio, Stock FROM productos";
+            String consulta = "GetPedidos";
+            SqlCommand comando = new SqlCommand(consulta, conexion);
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader reader = comando.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Pedido pedido = new Pedido();
+                pedido.Nombre = reader.GetString(0);
+                pedido.Producto = reader.GetString(1);
+                pedido.Cantidad = reader.GetInt32(2);
+                pedido.Precio = reader.GetDouble(3);
+                
+
+                lista.Add(pedido);
+            }
+            conexion.Close();
+
+            return lista;
+        }
     }
 }

@@ -52,8 +52,6 @@ namespace Datos
         {
             SqlConnection conexion = BdComun.EstablecerConexion();
             List<Producto> lista = new List<Producto>();
-
-            //String consulta = "SELECT IDProducto, Nombre, Descripcion, Precio, Stock FROM productos";
             String consulta = "GetProductos";
             SqlCommand comando = new SqlCommand(consulta, conexion);
             comando.CommandType = System.Data.CommandType.StoredProcedure;
@@ -65,7 +63,7 @@ namespace Datos
                 producto.Id = reader.GetInt32(0);
                 producto.Nombre = reader.GetString(1);
                 producto.Descripcion = reader.GetString(2);
-                producto.Precio = reader.GetString(3);
+                producto.Precio = reader.GetDouble(3);
                 producto.Stock = reader.GetString(4);
 
                 lista.Add(producto);

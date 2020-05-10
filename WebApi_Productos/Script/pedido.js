@@ -1,7 +1,7 @@
 ﻿$(function () {
     MostrarSelectProducto();
     MostrarSelectCliente();
-
+    actualizarGrilla();
     $("#btnAgregar").click(function () {
 
         guardarPedido();
@@ -83,7 +83,7 @@ function ajaxGETCliente() {
 }
 function guardarPedido() {
     ajaxPOSTPedido();
-    //actualizarGrilla();
+    actualizarGrilla();
     //restablecer();
 }
 function agregarPedido(){
@@ -106,11 +106,70 @@ function ajaxPOSTPedido() {
         data: { "IdPedido": obj.IdPedido, "IdCliente": obj.IdCliente, "IdProducto": obj.IdProducto, "Cantidad": obj.Cantidad }
     }).done(function (data) {
         result = data;
-    }).error(function (xhr, status, error) {
+    }).fail(function (xhr, status, error) {
         alert(error);
         var s = status;
         var e = error;
     });
 
     return result;
+}
+
+function ajaxGETPedido() {
+    var result;
+
+    $.ajax({
+        url: 'https://localhost:44305/api/pedido',
+        type: 'GET',
+        async: false
+    }).done(function (data) {
+        result = data;
+    }).fail(function (xhr, status, error) {
+        alert(error);
+        var s = status;
+        var e = error;
+    });
+    return result;
+}
+
+function actualizarGrilla(){
+    var data = ajaxGETPedido();
+    data.map(item => item.Precio = item.Precio * item.Cantidad)
+    construirGrilla(data);
+}
+
+function construirGrilla(data) {
+    var grd = $('#gridCombo');
+    grd.html("");
+    var tbl = $('<table class="table table-striped table-bordered table-hover table-sm "></table>');
+
+
+    var header = $('<thead></thead>');
+    var tr = $('<tr class="bg-primary text-light "></tr>');
+    tr.append('<th class="text-center">Nombre y Apellido</th>');
+    //tr.append('<th class="text-center">Apellido</th>');
+    tr.append('<th class="text-center">Producto</th>');
+    tr.append('<th class="text-center">Cantidad</th>');
+    tr.append('<th class="text-center">Precio Total</th>');
+
+    tbl.append(header);
+    header.append(tr);
+
+    var body = $('<tbody></tbody>');
+
+    for (d in data) {
+        var row = $('<tr class="jqClickeable"></tr>');
+        row.append('<td class="text-center">' + data[d].Nombre + '</td>');
+        //row.append('<td class="text-center">' + data[d].Apellido + '</td>');
+        row.append('<td class="text-center">' + data[d].Producto + '</td>');
+        row.append('<td class="text-center">' + data[d].Cantidad + '</td>');
+        row.append('<td class="text-center">' + "$" + data[d].Precio + '</td>');
+
+        tbl.append(body);
+        body.append(row);
+
+    }
+    grd.append(tbl);
+   // $('.jqClickeable').click(function () { mostrarElemento($(this)); });
+
 }
