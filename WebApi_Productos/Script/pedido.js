@@ -152,7 +152,7 @@ function construirGrilla(data, opcion) {
 
     var header = $('<thead></thead>');
     var tr = $('<tr class="bg-primary text-light "></tr>');
-    tr.append('<th class="text-center">Id Cliente</th>');
+    tr.append('<th class="text-center d-none">Id Cliente</th>');
     tr.append('<th class="text-center">Nombre y Apellido</th>');
     //tr.append('<th class="text-center">Apellido</th>');
     tr.append('<th class="text-center">Producto</th>');
@@ -166,7 +166,7 @@ function construirGrilla(data, opcion) {
 
     for (d in data) {
         var row = $('<tr class="jqClickeable"></tr>');
-        row.append('<td class="text-center">' + data[d].IdCliente + '</td>');
+        row.append('<td class="text-center d-none">' + data[d].IdCliente + '</td>');
         row.append('<td class="text-center">' + data[d].Nombre + '</td>');
         //row.append('<td class="text-center">' + data[d].Apellido + '</td>');
         row.append('<td class="text-center">' + data[d].Producto + '</td>');
